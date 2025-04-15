@@ -89,7 +89,7 @@ CREATE TABLE PRECIO
 CREATE TABLE PERSONAL
 (
 	Id INT IDENTITY(1,1),
-	CodigoPersonal INT,
+	CodigoPersonal VARCHAR(10),
 	TipoDocumento VARCHAR(2),
 	NumeroDocumento VARCHAR(20),
 	Nombre VARCHAR(200),
@@ -98,6 +98,7 @@ CREATE TABLE PERSONAL
 	Telefono VARCHAR(10),
 	Correo VARCHAR(100),
 	Clave VARCHAR(MAX),
+	Estado CHAR(1),
 	IdRol INT,
 	CONSTRAINT pk_personal
 		PRIMARY KEY (Id),
