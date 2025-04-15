@@ -1,10 +1,10 @@
-USE master
+--USE master
 
-DROP DATABASE DonShalo
+--DROP DATABASE DonShalo
 
-CREATE DATABASE DonShalo
+--CREATE DATABASE DonShalo
 
-USE DonShalo
+--USE DonShalo
 
 CREATE TABLE ROL
 (
@@ -115,10 +115,13 @@ CREATE TABLE SUCURSAL
 	Direccion VARCHAR(500),
 	Telefono VARCHAR(10),
 	IdResponsable INT,
+	HoraEntrada TIME,
+	HoraSalida TIME,
+	Estado BIT,
 	CONSTRAINT pk_sucursal
 		PRIMARY KEY (Id),
 	CONSTRAINT fk_sucursal_persona
-		FOREIGN KEY (Id)
+		FOREIGN KEY (IdResponsable)
 		REFERENCES PERSONAL(Id)
 )
 
