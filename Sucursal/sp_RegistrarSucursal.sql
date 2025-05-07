@@ -11,7 +11,7 @@ CREATE PROCEDURE sp_RegistrarSucursal
 	@pnombre VARCHAR(250),
 	@pdireccion VARCHAR(MAX),
 	@ptelefono VARCHAR(20),
-	@pidEncargado INT,
+	--@pidEncargado INT,
 	@pfechaEntrada TIME,
 	@pfechaSalida TIME,
 	@codigo VARCHAR(10) OUTPUT,
@@ -25,10 +25,12 @@ BEGIN
 			SELECT TOP 1 @codigoSucursal = (Id + 1) FROM PERSONAL ORDER BY ID DESC
 			INSERT INTO SUCURSAL(
 					CodigoSuc, Nombre, Direccion, 
-					Telefono, IdResponsable, 
+					Telefono, 
+					--IdResponsable, 
 					HoraEntrada, HoraSalida, Estado)
 			VALUES(RIGHT(REPLICATE('0', 3) + @codigoSucursal, 3), @pnombre, @pdireccion,
-					@ptelefono, @pidEncargado,
+					@ptelefono, 
+					--@pidEncargado,
 					@pfechaEntrada, @pfechaSalida, 1)
 
 			SET @codigo = 'OK';

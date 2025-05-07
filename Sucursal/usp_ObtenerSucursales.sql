@@ -26,8 +26,8 @@ BEGIN
 		END) AS [ESTADO],
 		CONCAT(PER.Nombre, ' ' , PER.ApellidoPaterno, ' ', PER.ApellidoMaterno) AS [RESPONSABLE]
 	FROM SUCURSAL SUC
-	INNER JOIN PERSONAL PER ON PER.Id = SUC.IdResponsable
+	LEFT JOIN PERSONAL PER ON PER.Id = SUC.Id
 	WHERE 
-		SUC.Nombre LIKE CONCAT(@pTermino,'%') OR 
-		@pTermino IS NULL OR @pTermino = ''
+		SUC.Nombre LIKE CONCAT('%', @pTermino,'%') OR 
+		(@pTermino IS NULL OR @pTermino = '')
 END

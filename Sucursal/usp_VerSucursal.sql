@@ -24,7 +24,7 @@ BEGIN
 		SUC.IdResponsable AS [ID_RESPONSABLE],
 		CONCAT(PER.Nombre, ' ' , PER.ApellidoPaterno, ' ', PER.ApellidoMaterno) AS [RESPONSABLE]
 	FROM SUCURSAL SUC
-	INNER JOIN PERSONAL PER ON PER.Id = SUC.IdResponsable
+	LEFT JOIN PERSONAL PER ON PER.Id = SUC.Id
 	WHERE 
 		SUC.Id = @pid OR 
 		@pid IS NULL OR @pid = ''
