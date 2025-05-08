@@ -1,0 +1,36 @@
+USE DonShalo;
+GO
+IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'usp_VerPersonal') 
+	BEGIN
+		DROP PROCEDURE usp_VerPersonal;
+	END
+GO
+
+CREATE PROCEDURE usp_VerPersonal
+(
+	@pId INT
+)
+AS
+BEGIN
+	SELECT 
+		PER.Id AS [ID],
+		(CASE PER.TipoDocumento
+			WHEN '01' THEN 'DNI' 
+			WHEN '02' THEN 'CARNET DE EXTRANJERIA'
+			WHEN '03' THEN 'PARTIDA DE NACIMIENTO'
+			WHEN '04' THEN 'PASAPORTE' END) AS [TIPO_DOCUMENTO],
+		PER.NumeroDocumento AS [NUMERO_DOCUMENTO],
+		CONCAT(PER.Nombre,' ' , PER.ApellidoPaterno, ' ',PER.ApellidoMaterno) AS [NOMBRE],
+		PER.Telefono AS [TELEFONO],
+		PER.Correo AS [CORREO],
+		(CASE PER.Estado
+			WHEN 'A' THEN 'ACTIVO'
+			WHEN 'I' THEN 'INACTIVO' END) AS [ESTADO],
+		ROL.Id AS [ROL]
+	FROM PERSONAL PER
+	LEFT JOIN ROL ROL ON ROL.Id = PER.IdRol
+	WHERE 
+		PER.Id LIKE CONCAT(@pId,'%') OR 
+		(@pId IS NULL OR @pId = '')
+
+END

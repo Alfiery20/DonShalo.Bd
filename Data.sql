@@ -13,9 +13,11 @@ INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Configuración', 'config
 
 SET @MenuConfiguracion = SCOPE_IDENTITY();
 
-DECLARE @MenuSucursal INT, @MenuPiso INT, @MenuMesa INT
+DECLARE @MenuSucursal INT, @MenuPiso INT, @MenuMesa INT, @MenuPersonal INT
 INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Sucursal', 'sucursal', 1, @MenuConfiguracion)
 SET @MenuSucursal = SCOPE_IDENTITY();
+INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Personal', 'personal', 4, @MenuConfiguracion)
+SET @MenuPersonal = SCOPE_IDENTITY();
 INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Piso', 'piso', 2, @MenuConfiguracion)
 SET @MenuPiso = SCOPE_IDENTITY();
 INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Mesa', 'mesa', 3, @MenuConfiguracion)
@@ -25,4 +27,5 @@ SET @MenuMesa = SCOPE_IDENTITY();
 INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuConfiguracion)
 INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuSucursal)
 INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuPiso)
+INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuMesa)
 INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuMesa)
