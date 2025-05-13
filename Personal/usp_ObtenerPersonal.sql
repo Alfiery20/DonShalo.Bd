@@ -17,15 +17,27 @@ AS
 BEGIN
 	SELECT 
 		PER.Id AS [ID],
-		PER.TipoDocumento AS [TIPO_DOCUMENTO],
+		(CASE PER.TipoDocumento
+			WHEN '01' THEN 'DNI' 
+			WHEN '02' THEN 'CARNET DE EXTRANJERIA'
+			WHEN '03' THEN 'PARTIDA DE NACIMIENTO'
+			WHEN '04' THEN 'PASAPORTE' END) AS [TIPO_DOCUMENTO],
 		PER.NumeroDocumento AS [NUMERO_DOCUMENTO],
-		CONCAT(PER.Nombre, PER.ApellidoPaterno, PER.ApellidoMaterno) AS [NOMBRE],
+		CONCAT(PER.Nombre,' ', PER.ApellidoPaterno, ' ', PER.ApellidoMaterno) AS [NOMBRE],
 		PER.Telefono AS [TELEFONO],
 		PER.Correo AS [CORREO],
-		PER.Estado AS [ESTADO],
-		ROL.Nombre AS [ROL]
+		(
+			CASE PER.Estado
+				WHEN 'A' THEN 'ACTIVO'
+				WHEN 'I' THEN 'INACTIVO'
+			END
+		) AS [ESTADO],
+		ROL.Nombre AS [ROL],
+		SUC.Nombre AS [SUCURSAL]
 	FROM PERSONAL PER
 	LEFT JOIN ROL ROL ON ROL.Id = PER.IdRol
+	LEFT JOIN ASIGNACIONPERSONAL ASI ON ASI.IdPersonal = PER.Id
+	LEFT JOIN SUCURSAL SUC ON SUC.Id = ASI.IdSucursal
 	WHERE 
 		(PER.Nombre LIKE CONCAT('%', @pNombre,'%') OR 
 		(@pNombre IS NULL OR @pNombre = '')) AND

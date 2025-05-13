@@ -17,6 +17,7 @@ CREATE PROCEDURE sp_RegistrarUsuario
 	@pcorreo VARCHAR(250),
 	@pclave VARCHAR(MAX),
 	@pidRol INT,
+	@pidSucursal INT,
 	@codigo VARCHAR(10) OUTPUT,
 	@msj VARCHAR(500) OUTPUT
 )
@@ -42,7 +43,7 @@ BEGIN
 				END
 			ELSE
 				BEGIN
-					DECLARE @codigoPersonal VARCHAR(10) = ''
+					DECLARE @codigoPersonal VARCHAR(10) = '', @idNuevo INT = 0
 					SELECT TOP 1 @codigoPersonal = (Id + 1) FROM PERSONAL ORDER BY ID DESC
 					INSERT INTO PERSONAL(
 							CodigoPersonal, TipoDocumento, NumeroDocumento, 
@@ -53,6 +54,10 @@ BEGIN
 							@pnombre, @papellidoPaterno, 
 							@papellidoMaterno, @ptelefono,
 							@pcorreo, @pclave, 'A', @pidRol)
+
+					SET @idNuevo = SCOPE_IDENTITY();
+					
+					INSERT INTO ASIGNACIONPERSONAL(IdSucursal, IdPersonal) VALUES (@pidSucursal, @idNuevo)
 
 					SET @codigo = 'OK';
 					SET @msj = 'Se registró el personal de forma satisfactoria.';

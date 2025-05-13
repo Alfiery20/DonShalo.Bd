@@ -15,6 +15,7 @@ CREATE PROCEDURE sp_EditarPersonal
 	@ptelefono VARCHAR(20),
 	@pcorreo VARCHAR(250),
 	@pidRol INT,
+	@pidSucursal INT,
 	@codigo VARCHAR(10) OUTPUT,
 	@msj VARCHAR(500) OUTPUT
 )
@@ -33,6 +34,7 @@ BEGIN
 				END
 			ELSE
 				BEGIN
+					DECLARE @idNuevo INT = 0
 					UPDATE PERSONAL 
 						SET Nombre = @pnombre, 
 							ApellidoPaterno = @papellidoPaterno,
@@ -42,8 +44,14 @@ BEGIN
 							IdRol = @pidRol
 					WHERE Id = @pId
 
+					SET @idNuevo = @@ROWCOUNT;
+					
+					DELETE FROM ASIGNACIONPERSONAL WHERE IdPersonal = @pId
+
+					INSERT INTO ASIGNACIONPERSONAL(IdSucursal, IdPersonal) VALUES (@pidSucursal, @idNuevo)
+
 					SET @codigo = 'OK';
-					SET @msj = 'Se edito el personal de forma satisfactoria.';
+					SET @msj = 'Se registró el personal de forma satisfactoria.';
 				END
 		COMMIT TRANSACTION;
 	END TRY
