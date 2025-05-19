@@ -1,0 +1,29 @@
+USE DonShalo;
+GO
+IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'usp_VerMesa') 
+	BEGIN
+		DROP PROCEDURE usp_VerMesa;
+	END
+GO
+
+CREATE PROCEDURE usp_VerMesa
+(
+	@pid INT
+)
+AS
+BEGIN
+	SELECT 
+		MESA.Id AS [ID],
+		MESA.Numero AS [NUMERO],
+		MESA.Capacidad AS [CAPACIDAD],
+		PISO.Id AS [PISO],
+		SUCU.Id AS [SUCURSAL],
+		(CASE MESA.Estado
+			WHEN 1 THEN 'Activo'
+			WHEN 0 THEN 'Inactivo' 
+		END) AS [ESTADO]
+	FROM MESA MESA
+	LEFT JOIN PISO PISO ON PISO.Id = MESA.IdPiso
+	LEFT JOIN SUCURSAL SUCU ON SUCU.Id = PISO.IdSucural
+	WHERE MESA.Id = @pid
+END

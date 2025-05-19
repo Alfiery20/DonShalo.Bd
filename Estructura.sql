@@ -134,10 +134,10 @@ CREATE TABLE ASIGNACIONPERSONAL
 	CONSTRAINT pk_asignacion_personal
 		PRIMARY KEY (Id),
 	CONSTRAINT fk_asignacion_personal_personal
-		FOREIGN KEY (Id)
+		FOREIGN KEY (IdPersonal)
 		REFERENCES PERSONAL(Id),
 	CONSTRAINT fk_asignacion_personal_sucursal
-		FOREIGN KEY (Id)
+		FOREIGN KEY (IdSucursal)
 		REFERENCES SUCURSAL(Id)
 )
 
@@ -148,6 +148,7 @@ CREATE TABLE PISO
 	CapacidadClientes INT,
 	CapacidadEmpleados INT,
 	IdSucural INT,
+	Estado BIT,
 	CONSTRAINT pk_piso
 		PRIMARY KEY (Id),
 	CONSTRAINT fk_piso_sucursal
@@ -161,6 +162,7 @@ CREATE TABLE MESA
 	Numero VARCHAR(2),
 	Capacidad INT,
 	IdPiso INT,
+	Estado BIT,
 	CONSTRAINT pk_mesa
 		PRIMARY KEY (Id),
 	CONSTRAINT fk_mesa_piso

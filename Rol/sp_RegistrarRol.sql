@@ -29,7 +29,7 @@ BEGIN
 				BEGIN
 					INSERT INTO ROL(Nombre, Estado)
 					VALUES(@pnombre, 1)
-					SET @codigo = 'E1';
+					SET @codigo = 'OK';
 					SET @msj = 'Se registró el rol de forma satisfactoria.';
 				END
 		COMMIT TRANSACTION;

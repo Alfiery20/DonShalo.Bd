@@ -12,11 +12,16 @@ CREATE PROCEDURE usp_ObtenerRol
 )
 AS
 BEGIN
-	SELECT TOP 5
+	SELECT
 		ROL.Id AS [ID],
-		ROL.Nombre AS [NOMBRE]
+		ROL.Nombre AS [NOMBRE],
+		(
+			CASE ROL.Estado 
+				WHEN 1 THEN 'ACTIVO'
+				ELSE 'INACTIVO' END
+		) AS [ESTADO]
 	FROM ROL ROL
 	WHERE 
-		ROL.Nombre LIKE CONCAT('%', @pTermino,'%') OR 
+		ROL.Nombre LIKE CONCAT(@pTermino,'%') OR 
 		(@pTermino IS NULL OR @pTermino = '')
 END

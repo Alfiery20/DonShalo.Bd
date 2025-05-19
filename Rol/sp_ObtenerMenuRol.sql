@@ -1,0 +1,26 @@
+USE DonShalo;
+GO
+IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'sp_ObtenerMenuRol') 
+	BEGIN
+		DROP PROCEDURE sp_ObtenerMenuRol;
+	END
+GO
+
+CREATE PROCEDURE sp_ObtenerMenuRol
+(
+	@pIdRol INT
+)
+AS
+BEGIN
+	SELECT 
+	MENU.Id AS [ID],
+	MENU.Nombre AS [NOMBRE],
+	MENU.MenuPadre AS [PADRE],
+	(CASE 
+		WHEN PERMI.Id IS NULL 
+		THEN CAST(0 AS BIT) ELSE CAST(1 AS BIT)
+	END) AS [PERMISO]
+	FROM MENU MENU
+	LEFT JOIN ROLXMENU PERMI 
+		ON PERMI.IdMenu = MENU.Id AND PERMI.IdRol = @pIdRol
+END

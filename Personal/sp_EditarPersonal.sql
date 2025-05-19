@@ -34,7 +34,6 @@ BEGIN
 				END
 			ELSE
 				BEGIN
-					DECLARE @idNuevo INT = 0
 					UPDATE PERSONAL 
 						SET Nombre = @pnombre, 
 							ApellidoPaterno = @papellidoPaterno,
@@ -43,12 +42,10 @@ BEGIN
 							Correo = @pcorreo, 
 							IdRol = @pidRol
 					WHERE Id = @pId
-
-					SET @idNuevo = @@ROWCOUNT;
 					
 					DELETE FROM ASIGNACIONPERSONAL WHERE IdPersonal = @pId
 
-					INSERT INTO ASIGNACIONPERSONAL(IdSucursal, IdPersonal) VALUES (@pidSucursal, @idNuevo)
+					INSERT INTO ASIGNACIONPERSONAL(IdSucursal, IdPersonal) VALUES (@pidSucursal, @pId)
 
 					SET @codigo = 'OK';
 					SET @msj = 'Se registró el personal de forma satisfactoria.';
