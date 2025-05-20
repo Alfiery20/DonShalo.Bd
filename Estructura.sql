@@ -49,6 +49,7 @@ CREATE TABLE MEDIOPAGO
 (
 	Id INT IDENTITY(1,1),
 	Nombre VARCHAR(100),
+	Estado BIT,
 	CONSTRAINT pk_mediopago
 		PRIMARY KEY (Id)
 )
