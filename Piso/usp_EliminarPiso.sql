@@ -16,10 +16,17 @@ AS
 BEGIN
 	BEGIN TRY
 		BEGIN TRANSACTION
-			UPDATE PISO SET Estado = 0 WHERE Id = @pIdPiso
+
+			UPDATE PISO 
+				SET Estado = (
+					CASE Estado
+					WHEN 1 THEN 0
+					ELSE 1 END
+					) 
+			WHERE Id = @pIdPiso
 
 			SET @codigo = 'OK';
-			SET @msj = 'Se elimino el Piso de forma satisfactoria.';
+			SET @msj = 'Se actualizo el estado del Piso de forma satisfactoria.';
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH

@@ -16,10 +16,17 @@ AS
 BEGIN
 	BEGIN TRY
 		BEGIN TRANSACTION
-			UPDATE SUCURSAL SET Estado = 0 WHERE Id = @pIdSucursal
+
+			UPDATE SUCURSAL 
+				SET Estado = (
+					CASE Estado
+					WHEN 1 THEN 0
+					ELSE 1 END
+					) 
+			WHERE Id = @pIdSucursal
 
 			SET @codigo = 'OK';
-			SET @msj = 'Se elimino la sucursal de forma satisfactoria.';
+			SET @msj = 'Se actualizo el estado de la sucursal de forma satisfactoria.';
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH

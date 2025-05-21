@@ -16,10 +16,16 @@ AS
 BEGIN
 	BEGIN TRY
 		BEGIN TRANSACTION
-			UPDATE PERSONAL SET Estado = 'I' WHERE Id = @pId
+			UPDATE PERSONAL 
+				SET Estado = (
+					CASE Estado
+					WHEN 'I' THEN 'A'
+					ELSE 'I' END
+					) 
+			WHERE Id = @pId
 
 			SET @codigo = 'OK';
-			SET @msj = 'Se elimino el personal de forma satisfactoria.';
+			SET @msj = 'Se actualizo el estado del personal de forma satisfactoria.';
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH

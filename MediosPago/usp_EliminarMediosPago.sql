@@ -16,10 +16,16 @@ AS
 BEGIN
 	BEGIN TRY
 		BEGIN TRANSACTION
-			UPDATE MEDIOPAGO SET Estado = 0 WHERE Id = @pIdMedioPago
+			UPDATE MEDIOPAGO 
+				SET Estado = (
+					CASE Estado
+					WHEN 1 THEN 0
+					ELSE 1 END
+					) 
+			WHERE Id = @pIdMedioPago
 
 			SET @codigo = 'OK';
-			SET @msj = 'Se elimino el medio de pago de forma satisfactoria.';
+			SET @msj = 'Se actualizo el estado del medio de pago de forma satisfactoria.';
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH
