@@ -1,12 +1,12 @@
 USE DonShalo;
 GO
-IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'usp_VerCategoria') 
+IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'usp_VerPlato') 
 	BEGIN
-		DROP PROCEDURE usp_VerCategoria;
+		DROP PROCEDURE usp_VerPlato;
 	END
 GO
 
-CREATE PROCEDURE usp_VerCategoria
+CREATE PROCEDURE usp_VerPlato
 (
 	@pid INT
 )
