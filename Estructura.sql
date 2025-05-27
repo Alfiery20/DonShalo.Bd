@@ -58,6 +58,7 @@ CREATE TABLE CATEGORIA
 (
 	Id INT IDENTITY(1,1),
 	Nombre VARCHAR(100),
+	Estado BIT,
 	CONSTRAINT pk_categoria
 		PRIMARY KEY (Id)
 )
@@ -67,6 +68,7 @@ CREATE TABLE PLATO
 	Id INT IDENTITY(1,1),
 	Nombre VARCHAR(100),
 	IdCategoria INT,
+	Estado BIT,
 	CONSTRAINT pk_plato
 		PRIMARY KEY (Id),
 	CONSTRAINT fk_plato_categoria
@@ -197,6 +199,7 @@ CREATE TABLE PEDIDO
 	IdMesa INT,
 	IdPersonal INT,
 	IdMedioPago INT,
+	Estado CHAR(1),
 	CONSTRAINT pk_pedido
 		PRIMARY KEY (Id),
 	CONSTRAINT fk_pedido_mesa

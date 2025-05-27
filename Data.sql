@@ -27,6 +27,31 @@ SET @MenuRol = SCOPE_IDENTITY();
 INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Medio Pago', 'medioPago', 6, @MenuConfiguracion)
 SET @MenuMedioPago = SCOPE_IDENTITY();
 
+
+--GESTION DE MESAS
+DECLARE @MenuGestionMesas INT
+INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Gestion de Mesas', 'gestionmesa', 1, null)
+
+SET @MenuGestionMesas = SCOPE_IDENTITY();
+
+DECLARE @MenuAtencionMesas INT
+INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Atencion de Mesas', 'atencionmesa', 1, @MenuGestionMesas)
+SET @MenuAtencionMesas = SCOPE_IDENTITY();
+
+
+--GESTION DE MESAS
+DECLARE @MenuGestionCarta INT
+INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Gestion Carta', 'gestionmesa', 1, null)
+
+SET @MenuGestionCarta = SCOPE_IDENTITY();
+
+DECLARE @MenuCategoria INT, @MenuPlato INT
+INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Categoria', 'categoria', 1, @MenuGestionCarta)
+SET @MenuCategoria = SCOPE_IDENTITY();
+INSERT INTO MENU(Nombre, Ruta, Orden, MenuPadre) VALUES('Plato', 'plato', 2, @MenuGestionCarta)
+SET @MenuPlato = SCOPE_IDENTITY();
+
+
 --PERMISOS DE SUPER ADMIN
 INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuConfiguracion)
 INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuSucursal)
@@ -35,3 +60,13 @@ INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuPiso)
 INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuMesa)
 INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuRol)
 INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuMedioPago)
+
+INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuGestionMesas)
+INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuAtencionMesas)
+
+INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuGestionCarta)
+INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuCategoria)
+INSERT INTO ROLXMENU(IdRol, IdMenu) VALUES (1, @MenuPlato)
+
+
+SELECT * FROM MENU

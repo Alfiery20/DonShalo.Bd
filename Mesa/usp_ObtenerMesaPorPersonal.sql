@@ -1,0 +1,30 @@
+USE DonShalo;
+GO
+IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'usp_ObtenerMesaPorPersonal') 
+	BEGIN
+		DROP PROCEDURE usp_ObtenerMesaPorPersonal;
+	END
+GO
+
+CREATE PROCEDURE usp_ObtenerMesaPorPersonal
+(
+	@pidPiso INT
+)
+AS
+BEGIN
+	SELECT 
+		MESA.Id AS [ID],
+		MESA.Numero AS [NUMERO],
+		(CASE 
+			WHEN PEDI.Id IS NULL THEN 0
+			WHEN PEDI.Id IS NOT NULL THEN 
+				(CASE PEDI.Estado
+						WHEN 'I' THEN 1
+						WHEN 'P' THEN 2
+				END)
+		END) AS [ESTADO]
+	FROM MESA MESA
+	LEFT JOIN PEDIDO PEDI ON PEDI.IdMesa = MESA.Id
+	LEFT JOIN PISO PISO ON PISO.Id = MESA.IdPiso
+	WHERE PISO.Id = @pidPiso
+END
