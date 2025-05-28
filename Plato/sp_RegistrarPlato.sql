@@ -11,6 +11,7 @@ CREATE PROCEDURE sp_RegistrarCategoria
 	@pnombre VARCHAR(100),
 	@pidCategoria INT,
 	@pFecha DATETIME,
+	@pPrecio DECIMAL(4,2),
 	@codigo VARCHAR(10) OUTPUT,
 	@msj VARCHAR(500) OUTPUT
 )
@@ -28,7 +29,7 @@ BEGIN
 
 			UPDATE PRECIO SET Estado = 0 WHERE IdPlato = @idNuevo
 
-			INSERT INTO PRECIO(Monto, Fecha, Estado, IdPlato) VALUES (@codigo, @pFecha, 1, @idNuevo)
+			INSERT INTO PRECIO(Monto, Fecha, Estado, IdPlato) VALUES (@pPrecio, @pFecha, 1, @idNuevo)
 
 			SET @codigo = 'OK';
 			SET @msj = 'Se registró el plato de forma satisfactoria.';
