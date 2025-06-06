@@ -1,12 +1,12 @@
 USE DonShalo;
 GO
-IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'sp_RegistrarCategoria') 
+IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'sp_RegistrarPlato') 
 	BEGIN
-		DROP PROCEDURE sp_RegistrarCategoria;
+		DROP PROCEDURE sp_RegistrarPlato;
 	END
 GO
 
-CREATE PROCEDURE sp_RegistrarCategoria
+CREATE PROCEDURE sp_RegistrarPlato
 (
 	@pnombre VARCHAR(100),
 	@pidCategoria INT,
