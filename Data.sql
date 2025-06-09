@@ -5,7 +5,7 @@ SET @RolSuperAdmin = SCOPE_IDENTITY();
 
 --CREAR USUARIO
 INSERT INTO PERSONAL(CodigoPersonal, TipoDocumento, NumeroDocumento, Nombre, ApellidoPaterno, ApellidoMaterno, Telefono, Correo, Clave, Estado, IdRol)
-VALUES('0000000000', '01', '74128515', 'Rodolfo Alfiery', 'Furlong', 'Millones', '966676402', 'alfieryfurlong18@gmail.com', 'K29Fc05aZ01FSjdoQ3p6Tko2Y3ZQUT09', '1', 1)
+VALUES('0000000000', '01', '74128515', 'Rodolfo Alfiery', 'Furlong', 'Millones', '966676402', 'alfieryfurlong18@gmail.com', 'K29Fc05aZ01FSjdoQ3p6Tko2Y3ZQUT09', 'A', 1)
 
 --MENU DE CONFIGURACION
 DECLARE @MenuConfiguracion INT
