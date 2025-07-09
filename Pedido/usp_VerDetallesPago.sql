@@ -14,6 +14,7 @@ AS
 BEGIN
 	SELECT 
 		DET_PED.Id AS [ID],
+		PLAT.Id AS [ID_PLATO],
 		PLAT.Nombre AS [PLATO],
 		DET_PED.PrecioUnitario AS [PRECIO],
 		DET_PED.Cantidad AS [CANTIDAD],

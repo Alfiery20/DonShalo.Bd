@@ -20,8 +20,9 @@ BEGIN
 
 		CONCAT(CLI.NumeroDocumento, ' - ', CLI.Nombre, ' ', CLI.ApellidoPaterno, ' ', CLI.ApellidoMaterno) AS [CLIENTE_NATURAL],
 		CONCAT(CLI.Ruc, ' - ', CLI.RazonSocial) AS [CLIENTE_JURIDICO],
+		PER.Id AS [ID_PERSONAL],
 		CONCAT(PER.Nombre, ' ', PER.ApellidoPaterno, ' ', PER.ApellidoMaterno) AS [PERSONAL],
-
+		MES.Id AS [ID_MESA],
 		MES.Numero AS [MESA]
 	FROM 
 	PEDIDO PEDI 

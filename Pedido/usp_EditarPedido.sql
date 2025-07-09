@@ -26,12 +26,13 @@ BEGIN
 
 			DELETE FROM DETALLEPEDIDO WHERE IdPedido = @pidPedido
 
-			INSERT INTO DETALLEPEDIDO(Cantidad, PrecioUnitario, IdPato, IdPedido)
+			INSERT INTO DETALLEPEDIDO(Cantidad, PrecioUnitario, IdPato, IdPedido, Comentario)
 			SELECT
 				Detalles.value('(cantidad)[1]', 'INT') AS cantidad,
 				PRE.Monto AS monto,
 				Detalles.value('(idPlato)[1]', 'INT') AS idPlato,
-				@pidPedido
+				@pidPedido,
+				Detalles.value('(comentario)[1]', 'VARCHAR(MAX)') AS comentario
 			FROM 
 				@pdetPedidos.nodes('/detalles/detalle') AS X(Detalles)
 				INNER JOIN PRECIO PRE ON PRE.IdPlato = Detalles.value('(idPlato)[1]', 'INT') AND PRE.Estado = 1

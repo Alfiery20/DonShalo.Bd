@@ -22,6 +22,7 @@ CREATE TABLE MENU
 	Ruta VARCHAR(MAX),
 	Orden INT,
 	MenuPadre INT,
+	Icono VARCHAR(400),
 	CONSTRAINT pk_menu
 		PRIMARY KEY (Id),
 	CONSTRAINT fk_menu_menuhijo
@@ -162,7 +163,7 @@ CREATE TABLE PISO
 CREATE TABLE MESA
 (
 	Id INT IDENTITY(1,1),
-	Numero VARCHAR(2),
+	Numero VARCHAR(3),
 	Capacidad INT,
 	IdPiso INT,
 	Estado BIT,
@@ -195,6 +196,7 @@ CREATE TABLE PEDIDO
 	NumeroSerie VARCHAR(10),
 	NumeroCorrelativo VARCHAR(20),
 	TipoPedido CHAR(1),
+	Comentario TEXT,
 	IdCliente INT,
 	IdMesa INT,
 	IdPersonal INT,
@@ -223,6 +225,7 @@ CREATE TABLE DETALLEPEDIDO
 	PrecioUnitario DECIMAL(4,2),
 	IdPato INT,
 	IdPedido INT,
+	Comentario TEXT,
 	CONSTRAINT pk_detallepedido
 		PRIMARY KEY (Id),
 	CONSTRAINT fk_detallepedido_plato
